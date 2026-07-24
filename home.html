@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OTAKU VAULT — Premium Anime Collectibles</title>
+<meta name="description" content="OTAKU VAULT — premium anime figures & collectibles. Featured drops, new arrivals, pre-orders and brand collections from One Piece, Demon Slayer, Naruto and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN SYSTEM ============ */
+:root{
+  --bg:#07070d;--bg2:#0c0c16;--panel:#11111d;--card:#13131f;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);
+  --text:#f3f4f8;--muted:#9aa1b8;--muted2:#6f7691;
+  --green:#34d399;--green2:#10b981;--violet:#a855f7;--violet2:#7c5cff;--crimson:#f43f5e;--gold:#fbbf24;--orange:#fb923c;--orange2:#f97316;
+  --grad:linear-gradient(120deg,var(--violet),var(--green));--grad2:linear-gradient(120deg,#c084fc,#34d399);--grad-o:linear-gradient(120deg,var(--orange),var(--orange2));
+  --radius:20px;--shadow:0 24px 60px -20px rgba(0,0,0,.7);--glowV:0 0 40px rgba(168,85,247,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;width:100%;min-width:100%;max-width:100%;position:relative}
+/* lock full-bleed bands to the viewport on every screen size (fixes mobile right-gap) */
+.topbar,.nav,.searchbar,.marquee,footer{width:100%;max-width:100%}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{font-family:inherit}
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 24px}
+.h-display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.05}
+.bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.bg-fx .o{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
+.bg-fx .o.a{width:520px;height:520px;background:var(--violet2);top:-180px;left:-120px}
+.bg-fx .o.b{width:480px;height:480px;background:var(--green2);bottom:-200px;right:-120px;opacity:.32}
+.bg-fx .o.c{width:380px;height:380px;background:var(--crimson);top:45%;left:50%;opacity:.1}
+.bg-grid{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent 75%);mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent 75%)}
+.reveal{opacity:0;transform:translateY(42px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ TOP BAR ============ */
+.topbar{background:var(--grad);color:#07070d;font-weight:600;font-size:.82rem;text-align:center;padding:9px 16px;letter-spacing:.02em}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:60;border-bottom:1px solid transparent;transition:.35s}
+.nav.scrolled{background:rgba(7,7,13,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
+.logo{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:1.25rem;flex:none}
+.logo .mark{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;color:#07070d;font-weight:800;box-shadow:var(--glowV)}
+.logo small{display:block;font-family:'Inter';font-size:.6rem;letter-spacing:.32em;color:var(--muted);font-weight:600;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links>li{list-style:none;position:relative}
+.nav-links a.nl{display:flex;align-items:center;gap:5px;padding:10px 14px;border-radius:10px;font-size:.9rem;font-weight:500;color:var(--muted);transition:.25s;cursor:pointer}
+.nav-links a.nl:hover,.nav-links a.nl.active{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-links a.nl .car{transition:transform .3s}.nav-links li:hover a.nl .car,.nav-links li.open a.nl .car{transform:rotate(180deg)}
+.nav-links a.nl .sale{color:var(--crimson);font-weight:700}
+/* dropdown */
+.drop{position:absolute;top:calc(100% + 10px);left:0;min-width:230px;background:rgba(12,12,22,.97);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:16px;padding:10px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(8px);transition:.28s;z-index:70}
+.nav-links li:hover .drop,.nav-links li.open .drop{opacity:1;visibility:visible;transform:none}
+.drop a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--muted);font-size:.9rem;transition:.2s}
+.drop a:hover{background:rgba(168,85,247,.12);color:var(--text);transform:translateX(3px)}
+.drop a .em{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.05);font-size:1rem}
+.drop .dhead{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);padding:6px 12px 4px}
+.nav-actions{display:flex;align-items:center;gap:12px;flex:none}
+.icon-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);display:grid;place-items:center;color:var(--text);cursor:pointer;position:relative;transition:.25s}
+.icon-btn:hover{border-color:var(--line2);background:rgba(255,255,255,.07);transform:translateY(-2px)}
+.icon-btn .count{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--crimson);color:#fff;font-size:.65rem;font-weight:700;display:grid;place-items:center}
+.burger{display:none}
+
+/* ============ SEARCH BAR ============ */
+.searchbar{border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(168,85,247,.07),rgba(52,211,153,.05))}
+.searchbar .inner{display:flex;gap:10px;padding:14px 0;max-width:760px}
+.searchbar .field{flex:1;display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:12px;border:1px solid var(--line2);background:rgba(7,7,13,.5)}
+.searchbar .field svg{color:var(--muted2);flex:none}
+.searchbar input{flex:1;background:none;border:none;outline:none;color:var(--text);padding:12px 0;font-size:.95rem}
+.searchbar .sbtn{padding:0 24px;border-radius:12px;border:none;background:var(--grad);color:#07070d;font-weight:700;cursor:pointer;transition:.25s}
+.searchbar .sbtn:hover{transform:translateY(-2px);box-shadow:var(--glowV)}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 26px;border-radius:13px;font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s}
+.btn svg{transition:transform .25s}.btn:hover svg{transform:translateX(4px)}
+.btn-primary{background:var(--grad);color:#07070d;box-shadow:var(--glowV)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(168,85,247,.5)}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line2);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.btn-cart{background:var(--grad-o);color:#1a0e02}
+.btn-cart:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(249,115,22,.4)}
+.btn-sm{padding:10px 14px;font-size:.82rem;border-radius:10px;flex:1}
+.btn-block{width:100%}
+
+/* ============ HERO CAROUSEL ============ */
+.hero{padding:26px 0 10px}
+.carousel{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line2);box-shadow:var(--shadow)}
+.slides{display:flex;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.slide{min-width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:420px;position:relative;overflow:hidden}
+.slide.s1{background:linear-gradient(120deg,#0d0a1c,#120c22 50%,#0a1414)}
+.slide.s2{background:linear-gradient(120deg,#1a0c14,#120c22 50%,#0a0f18)}
+.slide.s3{background:linear-gradient(120deg,#0a1410,#0d0a1c 50%,#160c20)}
+.slide .glow{position:absolute;width:380px;height:380px;border-radius:50%;filter:blur(110px);opacity:.5}
+.slide .txt{padding:56px;position:relative;z-index:3}
+.slide .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line2);font-size:.78rem;font-weight:600;letter-spacing:.05em}
+.slide h1{font-size:clamp(2.1rem,4.4vw,3.5rem);font-weight:800;margin:18px 0 14px}
+.slide h1 .grad{background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.slide p{color:var(--muted);max-width:420px;margin-bottom:26px}
+.slide .vis{position:relative;height:100%;min-height:420px;display:grid;place-items:center;z-index:2}
+.slide .vis img{max-height:360px;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));animation:floatY 6s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.slide .vis .ph-hero{width:min(300px,82%);height:300px;max-width:100%;border-radius:24px;display:grid;place-items:center;background:linear-gradient(140deg,var(--c1),var(--c2));position:relative;overflow:hidden}
+.slide .vis .ph-hero .emoji{font-size:7rem;filter:drop-shadow(0 16px 30px rgba(0,0,0,.5))}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:46px;height:46px;border-radius:50%;background:rgba(7,7,13,.6);backdrop-filter:blur(8px);border:1px solid var(--line2);color:#fff;display:grid;place-items:center;cursor:pointer;transition:.25s}
+.car-arrow:hover{background:var(--grad);color:#07070d}
+.car-arrow.prev{left:16px}.car-arrow.next{right:16px}
+.car-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:9px}
+.car-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.35);cursor:pointer;transition:.3s}
+.car-dots button.active{width:26px;border-radius:6px;background:var(--grad)}
+
+/* ============ MARQUEE ============ */
+.marquee{margin:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee .track{display:flex;gap:54px;width:max-content;animation:scroll 28s linear infinite}
+.marquee .track span{font-family:'Space Grotesk';font-weight:600;font-size:1.25rem;color:var(--muted2);white-space:nowrap;display:flex;align-items:center;gap:54px}
+.marquee .track span::after{content:"✦";color:var(--violet);font-size:1rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============ SECTION HEAD ============ */
+.section{padding:64px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px;flex-wrap:wrap}
+.sec-head .kicker{color:var(--green);font-weight:600;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase}
+.sec-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:700;margin-top:8px}
+.sec-head p{color:var(--muted);max-width:440px;margin-top:6px}
+.sec-head.center{flex-direction:column;align-items:center;text-align:center}
+
+/* ============ PRODUCT CARD ============ */
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.pcard{position:relative;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-8px);border-color:var(--line2);box-shadow:var(--shadow)}
+.pcard .media{position:relative;aspect-ratio:1/1;overflow:hidden;background:radial-gradient(120% 120% at 50% 0%,#16162400,#0a0a12)}
+.pcard .media>a{display:block;width:100%;height:100%}
+.pcard .media img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.pcard:hover .media img{transform:scale(1.07)}
+.ph{position:relative;width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(140deg,var(--c1),var(--c2));overflow:hidden}
+.ph .mono{position:absolute;font-family:'Space Grotesk';font-weight:700;font-size:8rem;color:#fff;opacity:.1;line-height:1}
+.ph .emoji{font-size:4.4rem;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45));transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.pcard:hover .ph .emoji{transform:scale(1.12) rotate(-4deg)}
+.ph::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);animation:sweep 4.5s ease-in-out infinite}
+@keyframes sweep{0%{left:-60%}55%,100%{left:130%}}
+.badge-new{position:absolute;top:12px;left:12px;z-index:4;padding:5px 11px;border-radius:999px;background:var(--grad-o);color:#1a0e02;font-size:.68rem;font-weight:800;letter-spacing:.05em}
+.badge-feat{position:absolute;top:12px;left:12px;z-index:4;padding:5px 11px;border-radius:999px;background:var(--grad);color:#07070d;font-size:.68rem;font-weight:800;letter-spacing:.04em;box-shadow:var(--glowV)}
+.series-pill{position:absolute;top:12px;right:12px;z-index:4;padding:5px 11px;border-radius:999px;background:rgba(7,7,13,.7);backdrop-filter:blur(8px);border:1px solid var(--line2);font-size:.68rem;font-weight:600}
+.ptag{position:absolute;top:12px;right:12px;z-index:4;padding:5px 11px;border-radius:999px;background:var(--grad-o);color:#1a0e02;font-size:.72rem;font-weight:800;box-shadow:0 6px 16px rgba(249,115,22,.4)}
+.pcard .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:7px;flex:1}
+.pcard .name{font-family:'Space Grotesk';font-weight:600;font-size:1.02rem;line-height:1.25}
+.pcard .name>a:hover{color:var(--violet)}
+.pcard .sub{color:var(--muted2);font-size:.8rem;margin-top:-3px}
+.stars{color:var(--gold);font-size:.82rem;letter-spacing:1px;display:flex;align-items:center;gap:7px}
+.stars span{color:var(--muted2);font-size:.76rem}
+.pcard .price{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem}
+.pcard .price .was{color:var(--muted2);font-size:.82rem;font-weight:400;text-decoration:line-through;margin-left:7px}
+.card-btns{display:flex;gap:8px;margin-top:auto;padding-top:10px}
+
+/* filters */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;justify-content:center}
+.chip{padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:.86rem;font-weight:500;cursor:pointer;transition:.25s}
+.chip:hover{color:var(--text);border-color:var(--line2)}
+.chip.active{background:var(--grad);color:#07070d;border-color:transparent;font-weight:600}
+
+/* ============ BRANDS ============ */
+.brands{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.brand{height:96px;border-radius:16px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+.brand:hover{transform:translateY(-5px);border-color:var(--line2)}
+.brand:hover .bname{filter:none;opacity:1}
+.bname{font-family:'Space Grotesk';font-weight:700;font-size:1.15rem;letter-spacing:.02em;opacity:.7;filter:grayscale(1);transition:.3s;text-align:center;line-height:1.1;padding:0 10px}
+.bname small{display:block;font-family:'Inter';font-weight:500;font-size:.55rem;letter-spacing:.2em;color:var(--muted2)}
+.brand.b1 .bname{color:#ff7aa2}.brand.b2 .bname{color:#7dd3fc}.brand.b3 .bname{color:#86efac}.brand.b4 .bname{color:#c4b5fd}.brand.b5 .bname{color:#fcd34d}
+
+/* ============ COLLECTIONS SPOTLIGHT ============ */
+.collections{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.col-card{position:relative;border-radius:20px;overflow:hidden;min-height:230px;display:flex;align-items:flex-end;padding:22px;cursor:pointer;border:1px solid var(--line);transition:.35s;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.col-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.col-card .big{position:absolute;top:14px;right:18px;font-size:5rem;opacity:.22;transition:.4s}
+.col-card:hover .big{transform:scale(1.15) rotate(6deg);opacity:.32}
+.col-card .ct{position:relative;z-index:2}
+.col-card .ct .k{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.col-card .ct h3{font-family:'Space Grotesk';font-size:1.4rem;font-weight:700;margin-top:4px}
+.col-card .ct .go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.82rem;font-weight:600;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);padding:7px 13px;border-radius:999px}
+.col-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%)}
+
+/* ============ FEATURES ============ */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.feat{padding:26px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.feat:hover{transform:translateY(-5px);border-color:var(--line2)}
+.feat .ic{width:46px;height:46px;border-radius:13px;background:rgba(168,85,247,.14);color:var(--violet);display:grid;place-items:center;margin-bottom:14px}
+.feat h4{font-family:'Space Grotesk';font-size:1.02rem;margin-bottom:5px}
+.feat p{color:var(--muted);font-size:.86rem}
+
+/* ============ NEWSLETTER ============ */
+.news{position:relative;border-radius:28px;overflow:hidden;padding:56px;text-align:center;border:1px solid var(--line);background:linear-gradient(120deg,rgba(168,85,247,.12),rgba(52,211,153,.08))}
+.news h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:700}
+.news p{color:var(--muted);margin:12px auto 26px;max-width:480px}
+.news form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.news input{flex:1;min-width:220px;padding:14px 18px;border-radius:13px;border:1px solid var(--line2);background:rgba(7,7,13,.6);color:var(--text);font-family:inherit;font-size:.95rem;outline:none;transition:.25s}
+.news input:focus{border-color:var(--violet)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);margin-top:80px;padding:64px 0 30px;background:var(--bg2)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:36px}
+.foot-grid>p,.foot-about p{color:var(--muted);font-size:.9rem;margin-top:16px;max-width:300px}
+.foot-col h5{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:18px}
+.foot-col a{display:block;color:var(--muted);font-size:.92rem;padding:6px 0;transition:.2s}
+.foot-col a:hover{color:var(--text);transform:translateX(4px)}
+.socials{display:flex;gap:12px;margin-top:18px}
+.socials a{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted);transition:.25s}
+.socials a:hover{color:#fff;border-color:var(--violet);transform:translateY(-3px)}
+.foot-bottom{margin-top:46px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--muted2);font-size:.84rem}
+
+/* ============ TOAST ============ */
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,140%);z-index:200;background:rgba(12,12,22,.96);backdrop-filter:blur(14px);border:1px solid var(--line2);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);transition:transform .45s cubic-bezier(.16,1,.3,1);max-width:90vw}
+#toast.show{transform:translate(-50%,0)}
+#toast .tic{width:34px;height:34px;border-radius:10px;background:var(--grad);color:#07070d;display:grid;place-items:center;flex:none}
+#toast b{font-size:.92rem}#toast span{display:block;color:var(--muted);font-size:.8rem}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1080px){.row4{grid-template-columns:repeat(3,1fr)}.brands{grid-template-columns:repeat(3,1fr)}.collections{grid-template-columns:repeat(2,1fr)}.foot-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:880px){
+  .nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;gap:0;background:rgba(7,7,13,.98);backdrop-filter:blur(16px);padding:8px 20px 20px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .4s;align-items:stretch;max-height:calc(100vh - 74px);overflow:auto}
+  .nav-links.open{transform:none}
+  .nav-links>li{width:100%}
+  .nav-links a.nl{padding:13px 6px;border-bottom:1px solid var(--line);border-radius:0;justify-content:space-between}
+  .drop{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;background:rgba(255,255,255,.02);display:none;margin:4px 0 8px}
+  .nav-links li.open .drop{display:block}
+  .burger{display:grid}
+  .slide{grid-template-columns:1fr;text-align:center}
+  .slide .txt{padding:40px 28px 24px}.slide .vis{min-height:240px}.slide .vis img{max-height:220px}
+  .features{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){.row4{grid-template-columns:repeat(2,1fr)}.brands{grid-template-columns:repeat(2,1fr)}.collections{grid-template-columns:1fr}.features{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr}.slide .txt{padding:30px 20px 18px}.news{padding:38px 22px}}
+@media(max-width:420px){.row4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-fx"><div class="o a"></div><div class="o b"></div><div class="o c"></div></div>
+<div class="bg-grid"></div>
+
+<div class="topbar">🚚 Free worldwide shipping over $99 &nbsp;•&nbsp; New drops every Friday &nbsp;•&nbsp; Wholesale welcome</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="home.html" class="logo"><span class="mark">忍</span><span>OTAKU VAULT<small>ANIME FIGURE STORE</small></span></a>
+    <ul class="nav-links" id="navlinks">
+      <li><a class="nl active" href="#top">Home</a></li>
+      <li><a class="nl" href="#arrivals">New Arrivals</a></li>
+      <li><a class="nl" href="#preorders">Pre‑Orders</a></li>
+      <li class="has-drop"><a class="nl">Categories <svg class="car" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <div class="drop">
+          <div class="dhead">Shop by series</div>
+          <a href="#arrivals" data-filter="one-piece"><span class="em">⚓</span> One Piece</a>
+          <a href="#arrivals" data-filter="demon-slayer"><span class="em">🗡️</span> Demon Slayer</a>
+          <a href="#arrivals" data-filter="naruto"><span class="em">🍥</span> Naruto</a>
+          <a href="#arrivals" data-filter="jjk"><span class="em">👁️</span> Jujutsu Kaisen</a>
+          <a href="#arrivals" data-filter="aot"><span class="em">⚔️</span> Attack on Titan</a>
+          <a href="#arrivals" data-filter="db"><span class="em">🐉</span> Dragon Ball</a>
+        </div>
+      </li>
+      <li class="has-drop"><a class="nl">Brands <svg class="car" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <div class="drop">
+          <div class="dhead">Official makers</div>
+          <a href="#brands"><span class="em">★</span> Good Smile Company</a>
+          <a href="#brands"><span class="em">★</span> Banpresto</a>
+          <a href="#brands"><span class="em">★</span> Kotobukiya</a>
+          <a href="#brands"><span class="em">★</span> Taito</a>
+          <a href="#brands"><span class="em">★</span> Bandai Spirits</a>
+        </div>
+      </li>
+      <li><a class="nl" href="#arrivals"><span class="sale">Sale</span></a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+      <button class="icon-btn" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span class="count" id="cartCount">2</span></button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH BAR -->
+<div class="searchbar" id="searchbar">
+  <div class="container">
+    <form class="inner" id="searchForm">
+      <div class="field"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="searchInput" placeholder="Search figures, series, brands…  e.g. Zoro, Demon Slayer" aria-label="Search">
+      </div>
+      <button class="sbtn" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+
+<!-- HERO CAROUSEL -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="carousel reveal">
+      <div class="slides" id="slides">
+        <div class="slide s1">
+          <div class="glow" style="background:var(--violet);top:-80px;right:10%"></div>
+          <div class="txt"><span class="eyebrow">✦ Latest arrivals</span><h1 class="h-display">UNBOX YOUR<br><span class="grad">PASSION!</span></h1><p>The newest anime figure drops, hand‑finished and ready to display. Collect the legends today.</p><a href="#arrivals" class="btn btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          <div class="vis"><img src="uploads/1784829709644.png" alt="Featured Zoro figure"></div>
+        </div>
+        <div class="slide s2">
+          <div class="glow" style="background:var(--crimson);bottom:-80px;left:8%"></div>
+          <div class="txt"><span class="eyebrow">🔥 Limited reservations</span><h1 class="h-display">PRE‑ORDERS<br><span class="grad">ARE OPEN</span></h1><p>Reserve the most hyped figures before they sell out. Lock in your copy with a small deposit.</p><a href="#preorders" class="btn btn-primary">View Pre‑Orders <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          <div class="vis"><div class="ph-hero" style="--c1:#7f1d1d;--c2:#f97316"><span class="emoji">🗡️</span></div></div>
+        </div>
+        <div class="slide s3">
+          <div class="glow" style="background:var(--green);top:-60px;left:20%"></div>
+          <div class="txt"><span class="eyebrow">⚓ Editor's pick</span><h1 class="h-display">THREE THOUSAND<br><span class="grad">WORLDS — ZORO</span></h1><p>Three‑sword style wreathed in Conqueror's Haki. Now in stock with 2 interchangeable heads.</p><a href="details.html" class="btn btn-primary">View Figure <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          <div class="vis"><img src="uploads/1784829705220.png" alt="Zoro three sword style"></div>
+        </div>
+      </div>
+      <button class="car-arrow prev" id="prev" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="car-arrow next" id="next" aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="car-dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="track">
+  <span>ONE PIECE</span><span>DEMON SLAYER</span><span>NARUTO</span><span>JUJUTSU KAISEN</span><span>ATTACK ON TITAN</span><span>DRAGON BALL</span><span>RE:ZERO</span><span>CHAINSAW MAN</span>
+  <span>ONE PIECE</span><span>DEMON SLAYER</span><span>NARUTO</span><span>JUJUTSU KAISEN</span><span>ATTACK ON TITAN</span><span>DRAGON BALL</span><span>RE:ZERO</span><span>CHAINSAW MAN</span>
+</div></div>
+
+<!-- FEATURED COLLECTIBLES -->
+<section class="section" id="featured" style="padding-top:30px">
+  <div class="container">
+    <div class="sec-head reveal"><div><div class="kicker">Hand‑picked</div><h2 class="h-display">Featured Collectibles</h2></div><a href="#arrivals" class="btn btn-ghost" style="padding:10px 20px">See all</a></div>
+    <div class="row4">
+      <article class="pcard reveal">
+        <div class="media"><span class="badge-feat">★ FEATURED</span><span class="series-pill">One Piece</span>
+          <a href="details.html"><img src="uploads/1784829709644.png" alt="Zoro figure" loading="lazy"></a></div>
+        <div class="body"><div class="name"><a href="details.html">Three Thousand Worlds — Zoro</a></div><div class="sub">Roronoa Zoro · Santoryu</div><div class="stars">★★★★★ <span>(128)</span></div><div class="price">$39.99<span class="was">$59.99</span></div>
+          <div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Shop Now</a><button class="btn btn-cart btn-sm" data-add="Three Thousand Worlds — Zoro">Add to Cart</button></div></div>
+      </article>
+      <article class="pcard reveal">
+        <div class="media"><span class="series-pill">Re:Zero</span>
+          <a href="details.html"><div class="ph" style="--c1:#9d174d;--c2:#6366f1"><span class="mono">RE</span><span class="emoji">💙</span></div></a></div>
+        <div class="body"><div class="name"><a href="details.html">Rem</a></div><div class="sub">Re:Zero · Banpresto</div><div class="stars">★★★★★ <span>(96)</span></div><div class="price">$34.99</div>
+          <div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Shop Now</a><button class="btn btn-cart btn-sm" data-add="Rem">Add to Cart</button></div></div>
+      </article>
+      <article class="pcard reveal">
+        <div class="media"><span class="series-pill">Vocaloid</span>
+          <a href="details.html"><div class="ph" style="--c1:#0e7490;--c2:#06b6d4"><span class="mono">M</span><span class="emoji">🎤</span></div></a></div>
+        <div class="body"><div class="name"><a href="details.html">Hatsune Miku</a></div><div class="sub">Vocaloid · Good Smile</div><div class="stars">★★★★★ <span>(142)</span></div><div class="price">$29.99</div>
+          <div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Shop Now</a><button class="btn btn-cart btn-sm" data-add="Hatsune Miku">Add to Cart</button></div></div>
+      </article>
+      <article class="pcard reveal">
+        <div class="media"><span class="series-pill">Dress‑Up Darling</span>
+          <a href="details.html"><div class="ph" style="--c1:#be185d;--c2:#fbbf24"><span class="mono">M</span><span class="emoji">👗</span></div></a></div>
+        <div class="body"><div class="name"><a href="details.html">Marin Kitagawa</a></div><div class="sub">My Dress‑Up Darling</div><div class="stars">★★★★☆ <span>(73)</span></div><div class="price">$44.99</div>
+          <div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Shop Now</a><button class="btn btn-cart btn-sm" data-add="Marin Kitagawa">Add to Cart</button></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS / ALL FIGURES -->
+<section class="section" id="arrivals" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head center reveal"><div class="kicker">Fresh in stock</div><h2 class="h-display">New Arrivals — All Figures</h2><p>Browse the full catalog. Filter by series and tap any figure for full details, angles & specs.</p></div>
+    <div class="filters reveal" id="filters">
+      <button class="chip active" data-f="all">All</button>
+      <button class="chip" data-f="one-piece">One Piece</button>
+      <button class="chip" data-f="demon-slayer">Demon Slayer</button>
+      <button class="chip" data-f="naruto">Naruto</button>
+      <button class="chip" data-f="jjk">Jujutsu Kaisen</button>
+      <button class="chip" data-f="aot">Attack on Titan</button>
+      <button class="chip" data-f="db">Dragon Ball</button>
+    </div>
+    <div class="row4" id="grid">
+      <article class="pcard reveal" data-series="one-piece"><div class="media"><span class="badge-feat">★ HOT</span><span class="series-pill">One Piece</span><a href="details.html"><img src="uploads/1784829705220.png" alt="Zoro" loading="lazy"></a></div><div class="body"><div class="name"><a href="details.html">Three Thousand Worlds — Zoro</a></div><div class="sub">One Piece</div><div class="stars">★★★★★ <span>(128)</span></div><div class="price">$39.99<span class="was">$59.99</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Zoro">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="one-piece"><div class="media"><span class="series-pill">One Piece</span><a href="details.html"><div class="ph" style="--c1:#b91c1c;--c2:#f59e0b"><span class="mono">麦</span><span class="emoji">🏴‍☠️</span></div></a></div><div class="body"><div class="name"><a href="details.html">Straw Hat Captain — Gear 5</a></div><div class="sub">One Piece</div><div class="stars">★★★★★ <span>(210)</span></div><div class="price">$46.99<span class="was">$68.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Straw Hat Captain">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="demon-slayer"><div class="media"><span class="series-pill">Demon Slayer</span><a href="details.html"><div class="ph" style="--c1:#7f1d1d;--c2:#f97316"><span class="mono">鬼</span><span class="emoji">🗡️</span></div></a></div><div class="body"><div class="name"><a href="details.html">Crimson Flame Hashira</a></div><div class="sub">Demon Slayer</div><div class="stars">★★★★★ <span>(86)</span></div><div class="price">$44.99<span class="was">$64.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Crimson Flame Hashira">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="demon-slayer"><div class="media"><span class="series-pill">Demon Slayer</span><a href="details.html"><div class="ph" style="--c1:#1e3a8a;--c2:#22d3ee"><span class="mono">水</span><span class="emoji">💧</span></div></a></div><div class="body"><div class="name"><a href="details.html">Water Hashira — Calm</a></div><div class="sub">Demon Slayer</div><div class="stars">★★★★★ <span>(64)</span></div><div class="price">$42.99</div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Water Hashira">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="naruto"><div class="media"><span class="series-pill">Naruto</span><a href="details.html"><div class="ph" style="--c1:#b45309;--c2:#1e3a8a"><span class="mono">忍</span><span class="emoji">🍥</span></div></a></div><div class="body"><div class="name"><a href="details.html">Shadow Shinobi — Sage Mode</a></div><div class="sub">Naruto</div><div class="stars">★★★★☆ <span>(74)</span></div><div class="price">$36.99<span class="was">$52.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Shadow Shinobi">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="jjk"><div class="media"><span class="series-pill">Jujutsu Kaisen</span><a href="details.html"><div class="ph" style="--c1:#312e81;--c2:#06b6d4"><span class="mono">呪</span><span class="emoji">👁️</span></div></a></div><div class="body"><div class="name"><a href="details.html">Cursed Sorcerer — Domain</a></div><div class="sub">Jujutsu Kaisen</div><div class="stars">★★★★★ <span>(102)</span></div><div class="price">$42.99<span class="was">$60.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Cursed Sorcerer">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="aot"><div class="media"><span class="series-pill">Attack on Titan</span><a href="details.html"><div class="ph" style="--c1:#0f766e;--c2:#d97706"><span class="mono">進</span><span class="emoji">⚔️</span></div></a></div><div class="body"><div class="name"><a href="details.html">Titan Slayer — Scout Regiment</a></div><div class="sub">Attack on Titan</div><div class="stars">★★★★☆ <span>(61)</span></div><div class="price">$38.99<span class="was">$55.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Titan Slayer">Add to Cart</button></div></div></article>
+      <article class="pcard reveal" data-series="db"><div class="media"><span class="series-pill">Dragon Ball</span><a href="details.html"><div class="ph" style="--c1:#a16207;--c2:#ea580c"><span class="mono">龍</span><span class="emoji">🐉</span></div></a></div><div class="body"><div class="name"><a href="details.html">Saiyan Warrior — Awakened</a></div><div class="sub">Dragon Ball</div><div class="stars">★★★★★ <span>(93)</span></div><div class="price">$41.99<span class="was">$58.00</span></div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-sm">Details</a><button class="btn btn-cart btn-sm" data-add="Saiyan Warrior">Add to Cart</button></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- TOP PRE-ORDERS -->
+<section class="section" id="preorders" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head reveal"><div><div class="kicker">Reserve now</div><h2 class="h-display">Top Pre‑Orders</h2></div><a href="#" class="btn btn-ghost" style="padding:10px 20px">All pre‑orders</a></div>
+    <div class="row4">
+      <article class="pcard reveal"><div class="media"><span class="badge-new">NEW</span><span class="ptag">$34.99</span><a href="details.html"><div class="ph" style="--c1:#166534;--c2:#f472b6"><span class="mono">SPY</span><span class="emoji">🥜</span></div></a></div><div class="body"><div class="name"><a href="details.html">Anya Forger</a></div><div class="sub">Spy × Family</div><div class="stars">★★★★★ <span>(58)</span></div><div class="price">$34.99</div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-block" data-pre="Anya Forger">Pre‑Order Now</a></div></div></article>
+      <article class="pcard reveal"><div class="media"><span class="badge-new">NEW</span><span class="ptag">$29.99</span><a href="details.html"><div class="ph" style="--c1:#1e1b4b;--c2:#0ea5e9"><span class="mono">JK</span><span class="emoji">🕶️</span></div></a></div><div class="body"><div class="name"><a href="details.html">Gojo Satoru</a></div><div class="sub">Jujutsu Kaisen</div><div class="stars">★★★★★ <span>(187)</span></div><div class="price">$29.99</div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-block" data-pre="Gojo Satoru">Pre‑Order Now</a></div></div></article>
+      <article class="pcard reveal"><div class="media"><span class="badge-new">NEW</span><span class="ptag">$39.59</span><a href="details.html"><div class="ph" style="--c1:#831843;--c2:#10b981"><span class="mono">禰</span><span class="emoji">🎋</span></div></a></div><div class="body"><div class="name"><a href="details.html">Nezuko Kamado</a></div><div class="sub">Demon Slayer</div><div class="stars">★★★★★ <span>(121)</span></div><div class="price">$39.59</div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-block" data-pre="Nezuko Kamado">Pre‑Order Now</a></div></div></article>
+      <article class="pcard reveal"><div class="media"><span class="badge-new">NEW</span><span class="ptag">$34.99</span><a href="details.html"><div class="ph" style="--c1:#9f1239;--c2:#fbbf24"><span class="mono">CSM</span><span class="emoji">🩸</span></div></a></div><div class="body"><div class="name"><a href="details.html">Power</a></div><div class="sub">Chainsaw Man</div><div class="stars">★★★★☆ <span>(49)</span></div><div class="price">$34.99</div><div class="card-btns"><a href="details.html" class="btn btn-primary btn-block" data-pre="Power">Pre‑Order Now</a></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR BRANDS -->
+<section class="section" id="brands" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head center reveal"><div class="kicker">Official makers</div><h2 class="h-display">Popular Brands</h2></div>
+    <div class="brands reveal">
+      <div class="brand b1"><div class="bname">GOOD SMILE<small>COMPANY</small></div></div>
+      <div class="brand b2"><div class="bname">BANPRESTO</div></div>
+      <div class="brand b3"><div class="bname">KOTOBUKIYA</div></div>
+      <div class="brand b4"><div class="bname">TAITO</div></div>
+      <div class="brand b5"><div class="bname">BANDAI<small>SPIRITS</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS SPOTLIGHT -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head center reveal"><div class="kicker">Shop by universe</div><h2 class="h-display">Collections Spotlight</h2></div>
+    <div class="collections reveal">
+      <a href="#arrivals" class="col-card" data-filter="one-piece" style="--c1:#7f1d1d;--c2:#0c0c16"><span class="big">⚓</span><div class="ct"><div class="k">Collection</div><h3>One Piece</h3><span class="go">Explore →</span></div></a>
+      <a href="#arrivals" class="col-card" data-filter="demon-slayer" style="--c1:#166534;--c2:#0c0c16"><span class="big">🗡️</span><div class="ct"><div class="k">Collection</div><h3>Demon Slayer</h3><span class="go">Explore →</span></div></a>
+      <a href="#arrivals" class="col-card" data-filter="jjk" style="--c1:#312e81;--c2:#0c0c16"><span class="big">👁️</span><div class="ct"><div class="k">Collection</div><h3>Jujutsu Kaisen</h3><span class="go">Explore →</span></div></a>
+      <a href="#arrivals" class="col-card" data-filter="naruto" style="--c1:#b45309;--c2:#0c0c16"><span class="big">🍥</span><div class="ct"><div class="k">Collection</div><h3>Naruto</h3><span class="go">Explore →</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" style="padding-top:0">
+  <div class="container"><div class="features">
+    <div class="feat reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg></div><h4>Quality Checked</h4><p>Every figure inspected for paint & joint quality.</p></div>
+    <div class="feat reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h4>Fast Shipping</h4><p>Tracked worldwide delivery, collector‑safe packing.</p></div>
+    <div class="feat reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h4>Secure Checkout</h4><p>Encrypted payments & buyer protection.</p></div>
+    <div class="feat reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Collector Support</h4><p>Real humans, 7 days a week — incl. wholesale.</p></div>
+  </div></div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section" style="padding-top:0">
+  <div class="container"><div class="news reveal">
+    <h2 class="h-display">Never miss a drop</h2>
+    <p>Early access to limited releases, restocks & exclusive collector deals.</p>
+    <form id="newsForm"><input type="email" placeholder="your@email.com" required><button class="btn btn-primary" type="submit">Notify me</button></form>
+  </div></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="home.html" class="logo"><span class="mark">忍</span><span>OTAKU VAULT<small>ANIME FIGURE STORE</small></span></a>
+        <p>Premium anime figures & collectibles for true fans. Curated, quality‑checked, and shipped worldwide.</p>
+        <div class="socials">
+          <a href="#" aria-label="Twitter"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.46l8.6-9.83L0 1.15h7.6l5.24 6.93 6.06-6.93Zm-1.29 19.5h2.04L6.48 3.24H4.3l13.31 17.41Z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12Zm-13 3V9l5 3-5 3Z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.6 3.6 3.9v2.6c-1.3 0-2.6-.4-3.6-1.1v5.9c0 3-2.4 5.4-5.4 5.4S5.2 17.3 5.2 14.3s2.4-5.4 5.4-5.4c.3 0 .6 0 .9.1v2.7c-.3-.1-.6-.2-.9-.2-1.5 0-2.8 1.3-2.8 2.8s1.3 2.8 2.8 2.8 2.8-1.3 2.8-2.8V3H16z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h5>Home</h5><a href="#top">Home</a><a href="#">About Us</a><a href="#arrivals">Categories</a><a href="#">Contact Us</a></div>
+      <div class="foot-col"><h5>Categories</h5><a href="#">Blog</a><a href="#brands">Brands</a><a href="#preorders">Pre‑orders</a><a href="#arrivals">New Arrivals</a></div>
+      <div class="foot-col"><h5>Links</h5><a href="#">Contact Us</a><a href="#">FAQs</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a></div>
+      <div class="foot-col"><h5>Help</h5><a href="#">Shipping Info</a><a href="#">Wholesale</a><a href="#">Track Order</a><a href="#">Size Guide</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 OTAKU VAULT Collectibles. All Rights Reserved.</span><span>Made for collectors, by collectors ✦</span></div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast"><span class="tic">✓</span><div><b id="toastTitle">Added to cart</b><span id="toastMsg">Item</span></div></div>
+
+<script>
+/* nav scroll + mobile menu */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+const burger=document.getElementById('burger'),nl=document.getElementById('navlinks');
+burger.addEventListener('click',()=>nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{if(a.classList.contains('nl')&&!a.parentElement.classList.contains('has-drop'))nl.classList.remove('open');}));
+/* dropdown toggle (touch) */
+document.querySelectorAll('.has-drop > .nl').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const li=a.parentElement;const wasOpen=li.classList.contains('open');document.querySelectorAll('.has-drop').forEach(x=>x.classList.remove('open'));if(!wasOpen)li.classList.add('open');}));
+
+/* search toggle scroll */
+document.getElementById('searchToggle').addEventListener('click',()=>{document.getElementById('searchbar').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>document.getElementById('searchInput').focus(),500);});
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* toast */
+let toastT;const toast=document.getElementById('toast');
+function showToast(title,msg){document.getElementById('toastTitle').textContent=title;document.getElementById('toastMsg').textContent=msg;toast.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove('show'),2200);}
+let cart=2;const cartCount=document.getElementById('cartCount');
+function bumpCart(){cart++;cartCount.textContent=cart;cartCount.animate([{transform:'scale(1)'},{transform:'scale(1.5)'},{transform:'scale(1)'}],{duration:350});}
+document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>{bumpCart();showToast('Added to cart 🛒',b.dataset.add);}));
+document.querySelectorAll('[data-pre]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();showToast('Pre‑order reserved 🔥',b.dataset.pre);}));
+document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();e.target.querySelector('input').value='';showToast('Subscribed ✉️','You\'ll hear about every drop.');});
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('searchInput').value.trim();showToast('Searching… 🔎',q||'Showing all figures');});
+
+/* carousel */
+const slides=document.getElementById('slides'),total=slides.children.length,dotsBox=document.getElementById('dots');
+let idx=0,timer;
+for(let i=0;i<total;i++){const d=document.createElement('button');if(i===0)d.classList.add('active');d.addEventListener('click',()=>go(i));dotsBox.appendChild(d);}
+function go(i){idx=(i+total)%total;slides.style.transform=`translateX(-${idx*100}%)`;[...dotsBox.children].forEach((d,n)=>d.classList.toggle('active',n===idx));}
+function next(){go(idx+1)}function prev(){go(idx-1)}
+document.getElementById('next').onclick=()=>{next();reset()};document.getElementById('prev').onclick=()=>{prev();reset()};
+function reset(){clearInterval(timer);timer=setInterval(next,5500);}reset();
+
+/* filtering (chips + dropdown + collections) */
+const chips=document.querySelectorAll('#filters .chip'),cards=document.querySelectorAll('#grid .pcard');
+function setFilter(f){
+  chips.forEach(c=>c.classList.toggle('active',c.dataset.f===f));
+  cards.forEach(card=>{const show=f==='all'||card.dataset.series===f;card.style.display=show?'flex':'none';if(show){card.classList.remove('in');requestAnimationFrame(()=>card.classList.add('in'));}});
+}
+chips.forEach(c=>c.addEventListener('click',()=>setFilter(c.dataset.f)));
+document.querySelectorAll('[data-filter]').forEach(el=>el.addEventListener('click',()=>{setFilter(el.dataset.filter);}));
+</script>
+</body>
+</html>
