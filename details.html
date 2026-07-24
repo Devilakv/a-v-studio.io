@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Three Thousand Worlds — Zoro | OTAKU VAULT</title>
+<meta name="description" content="Three Thousand Worlds Zoro — Three Sword Style PVC figure. 23.5cm, 328g, with Conqueror's Haki effects and 2 interchangeable heads." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070d;--bg2:#0c0c16;--panel:#11111d;--card:#13131f;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);
+  --text:#f3f4f8;--muted:#9aa1b8;--muted2:#6f7691;
+  --green:#34d399;--green2:#10b981;--violet:#a855f7;--violet2:#7c5cff;--crimson:#f43f5e;--gold:#fbbf24;
+  --grad:linear-gradient(120deg,var(--violet),var(--green));--grad2:linear-gradient(120deg,#c084fc,#34d399);
+  --radius:20px;--shadow:0 24px 60px -20px rgba(0,0,0,.7);--glowV:0 0 40px rgba(168,85,247,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 24px}
+.h-display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.05}
+.bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.bg-fx .o{position:absolute;border-radius:50%;filter:blur(110px);opacity:.45}
+.bg-fx .o.a{width:520px;height:520px;background:var(--violet2);top:-180px;left:-120px}
+.bg-fx .o.b{width:480px;height:480px;background:var(--green2);bottom:-200px;right:-120px;opacity:.3}
+.bg-grid{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent 75%);mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent 75%)}
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.left{transform:translateX(-46px)}.reveal.right{transform:translateX(46px)}
+.reveal.left.in,.reveal.right.in{transform:none}
+
+/* top scroll progress */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:100;box-shadow:var(--glowV);transition:width .08s linear}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:.35s}
+.nav.scrolled{background:rgba(7,7,13,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:1.25rem}
+.logo .mark{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;color:#07070d;font-weight:800;box-shadow:var(--glowV)}
+.logo small{display:block;font-family:'Inter';font-size:.6rem;letter-spacing:.32em;color:var(--muted);font-weight:600;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:.92rem;font-weight:500;color:var(--muted);position:relative;transition:color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-7px;height:2px;width:0;background:var(--grad);border-radius:2px;transition:width .3s}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:14px}
+.icon-btn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);display:grid;place-items:center;color:var(--text);cursor:pointer;position:relative;transition:.25s}
+.icon-btn:hover{border-color:var(--line2);background:rgba(255,255,255,.07);transform:translateY(-2px)}
+.icon-btn .count{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--crimson);color:#fff;font-size:.65rem;font-weight:700;display:grid;place-items:center}
+.burger{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 28px;border-radius:14px;font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s;font-family:inherit}
+.btn svg{transition:transform .25s}.btn:hover svg{transform:translateX(4px)}
+.btn-primary{background:var(--grad);color:#07070d;box-shadow:var(--glowV)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(168,85,247,.5)}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line2);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.btn-block{width:100%}
+
+/* breadcrumb */
+.crumb{padding:22px 0 0;font-size:.84rem;color:var(--muted2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.crumb a:hover{color:var(--text)}.crumb .sep{opacity:.5}.crumb .cur{color:var(--muted)}
+
+/* product top */
+.ptop{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;padding:30px 0 30px;align-items:start}
+/* gallery */
+.gallery{position:sticky;top:96px}
+.stage{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;border:1px solid var(--line2);background:radial-gradient(120% 120% at 35% 25%,#1a1330,#0a0a12);cursor:zoom-in}
+.stage::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 45% at 70% 30%,rgba(168,85,247,.3),transparent 70%);z-index:1;pointer-events:none}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:20px;z-index:2;transition:transform .15s ease-out,opacity .35s}
+.stage .zoom-hint{position:absolute;bottom:14px;right:14px;z-index:3;font-size:.72rem;color:var(--muted);background:rgba(7,7,13,.6);backdrop-filter:blur(8px);border:1px solid var(--line);padding:6px 11px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}
+.thumb{aspect-ratio:1/1;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0c0c16;cursor:pointer;padding:6px;transition:.25s;position:relative}
+.thumb img{width:100%;height:100%;object-fit:contain}
+.thumb:hover{border-color:var(--line2)}
+.thumb.active{border-color:var(--violet);box-shadow:0 0 0 2px rgba(168,85,247,.4)}
+
+/* info */
+.series-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);color:#d8b4fe;font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.ptop h1{font-size:clamp(2rem,4vw,3rem);font-weight:700;margin:16px 0 12px}
+.rating{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.9rem}
+.rating .stars{color:var(--gold);letter-spacing:1px}
+.rating a{color:var(--violet);font-weight:500}
+.pricebox{display:flex;align-items:baseline;gap:14px;margin:22px 0 6px}
+.pricebox .now{font-family:'Space Grotesk';font-size:2.4rem;font-weight:700}
+.pricebox .was{color:var(--muted2);text-decoration:line-through;font-size:1.1rem}
+.pricebox .off{background:rgba(244,63,94,.15);color:#fb7185;font-size:.78rem;font-weight:700;padding:5px 10px;border-radius:8px}
+.stock{display:inline-flex;align-items:center;gap:7px;color:var(--green);font-size:.85rem;font-weight:600;margin-bottom:18px}
+.stock .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.lead{color:var(--muted);max-width:520px}
+.opt-label{font-size:.82rem;font-weight:600;letter-spacing:.04em;margin:26px 0 10px;color:var(--muted)}
+.opt-label b{color:var(--text)}
+.heads{display:flex;gap:12px}
+.head-opt{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.03);cursor:pointer;transition:.25s;font-size:.88rem}
+.head-opt:hover{border-color:var(--line2)}
+.head-opt.active{border-color:var(--violet);background:rgba(168,85,247,.1)}
+.head-opt .sw{width:26px;height:26px;border-radius:8px;background:radial-gradient(circle at 30% 30%,#2a2a3a,#0a0a12);display:grid;place-items:center;font-size:.9rem}
+.qtyrow{display:flex;gap:14px;align-items:center;margin:26px 0 18px;flex-wrap:wrap}
+.qty{display:flex;align-items:center;border:1px solid var(--line2);border-radius:13px;overflow:hidden}
+.qty button{width:44px;height:48px;background:rgba(255,255,255,.03);border:none;color:var(--text);font-size:1.2rem;cursor:pointer;transition:.2s}
+.qty button:hover{background:rgba(255,255,255,.09)}
+.qty input{width:54px;height:48px;text-align:center;background:transparent;border:none;color:var(--text);font-family:'Space Grotesk';font-weight:600;font-size:1.05rem;outline:none}
+.buyrow{display:flex;gap:12px;flex-wrap:wrap}
+.buyrow .btn{flex:1;min-width:160px}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+.trust .t{display:flex;gap:10px;align-items:center;padding:13px;border-radius:13px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.trust .t .ic{color:var(--green);flex:none}
+.trust .t span{font-size:.78rem;color:var(--muted);line-height:1.3}
+.quickfacts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
+.quickfacts .q{padding:14px 10px;border-radius:13px;background:var(--card);border:1px solid var(--line);text-align:center}
+.quickfacts .q b{font-family:'Space Grotesk';font-size:1.15rem;display:block}
+.quickfacts .q span{font-size:.68rem;color:var(--muted2);letter-spacing:.05em;text-transform:uppercase}
+
+/* sticky cart bar */
+.stickbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(10,10,18,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line);transform:translateY(120%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.stickbar.show{transform:none}
+.stickbar .inner{display:flex;align-items:center;gap:16px;padding:12px 0}
+.stickbar .sb-img{width:52px;height:52px;border-radius:12px;overflow:hidden;background:#0c0c16;border:1px solid var(--line);flex:none}
+.stickbar .sb-img img{width:100%;height:100%;object-fit:contain;padding:3px}
+.stickbar .sb-info{flex:1;min-width:0}
+.stickbar .sb-info .nm{font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stickbar .sb-info .pr{color:var(--green);font-family:'Space Grotesk';font-weight:700}
+.stickbar .btn{padding:12px 22px}
+
+/* dot nav */
+.dotnav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:16px}
+.dotnav a{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.2);position:relative;transition:.3s}
+.dotnav a:hover{background:rgba(255,255,255,.5)}
+.dotnav a.active{background:var(--grad);box-shadow:var(--glowV);transform:scale(1.25)}
+.dotnav a .tip{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--card);border:1px solid var(--line2);padding:5px 11px;border-radius:8px;font-size:.74rem;opacity:0;pointer-events:none;transition:.25s}
+.dotnav a:hover .tip{opacity:1;right:26px}
+
+/* sections */
+.dsec{padding:72px 0;border-top:1px solid var(--line)}
+.dsec:first-of-type{border-top:none}
+.sec-kicker{color:var(--green);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}
+.dsec h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700;margin:8px 0 8px}
+.dsec .intro{color:var(--muted);max-width:620px}
+
+/* highlights */
+.highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+.hl{padding:26px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.hl:hover{transform:translateY(-6px);border-color:var(--line2)}
+.hl .ic{width:50px;height:50px;border-radius:14px;background:var(--grad);color:#07070d;display:grid;place-items:center;margin-bottom:16px}
+.hl h4{font-family:'Space Grotesk';font-size:1.1rem;margin-bottom:6px}
+.hl p{color:var(--muted);font-size:.9rem}
+
+/* specs */
+.specs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:38px}
+.spec-table{border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.spec-table .row{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-bottom:1px solid var(--line)}
+.spec-table .row:last-child{border-bottom:none}
+.spec-table .row:nth-child(odd){background:rgba(255,255,255,.02)}
+.spec-table .k{color:var(--muted);font-size:.9rem}
+.spec-table .v{font-weight:600;text-align:right}
+.stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{padding:26px;border-radius:18px;background:linear-gradient(140deg,rgba(168,85,247,.12),rgba(52,211,153,.06));border:1px solid var(--line);position:relative;overflow:hidden}
+.stat .num{font-family:'Space Grotesk';font-size:2.6rem;font-weight:700;background:var(--grad2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lab{color:var(--muted);font-size:.85rem;margin-top:4px}
+.stat .deco{position:absolute;right:-10px;bottom:-14px;font-size:4rem;opacity:.07}
+
+/* horizontal gallery */
+.hscroll{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:34px 0 18px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--violet2) transparent}
+.hscroll::-webkit-scrollbar{height:8px}
+.hscroll::-webkit-scrollbar-thumb{background:var(--violet2);border-radius:8px}
+.hscroll .gi{flex:0 0 320px;scroll-snap-align:center;aspect-ratio:1/1;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(120% 120% at 40% 20%,#161024,#0a0a12);position:relative}
+.hscroll .gi img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .6s}
+.hscroll .gi:hover img{transform:scale(1.07)}
+.hscroll .gi .cap{position:absolute;left:14px;bottom:14px;font-size:.78rem;color:var(--muted);background:rgba(7,7,13,.6);backdrop-filter:blur(8px);border:1px solid var(--line);padding:6px 12px;border-radius:999px}
+
+/* craftsmanship parallax */
+.craft-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:38px}
+.craft-img{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line2);aspect-ratio:4/3;background:#0a0a12}
+.craft-img img{width:100%;height:120%;object-fit:cover;object-position:center;will-change:transform}
+.craft-list{list-style:none;display:flex;flex-direction:column;gap:16px}
+.craft-list li{display:flex;gap:14px;align-items:flex-start}
+.craft-list .ck{width:30px;height:30px;border-radius:9px;background:rgba(52,211,153,.14);color:var(--green);display:grid;place-items:center;flex:none}
+.craft-list b{display:block;font-family:'Space Grotesk';margin-bottom:2px}
+.craft-list span{color:var(--muted);font-size:.9rem}
+
+/* packaging */
+.pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:38px}
+.pkg{padding:24px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.pkg:hover{transform:translateY(-5px);border-color:var(--line2)}
+.pkg .ic{width:44px;height:44px;border-radius:12px;background:rgba(168,85,247,.14);color:var(--violet);display:grid;place-items:center;margin-bottom:14px}
+.pkg b{font-family:'Space Grotesk';display:block;font-size:1.15rem}
+.pkg span{color:var(--muted);font-size:.85rem}
+
+/* reviews */
+.rev-top{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-top:38px;align-items:center}
+.rev-score{text-align:center;padding:30px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.rev-score .big{font-family:'Space Grotesk';font-size:3.6rem;font-weight:700;line-height:1}
+.rev-score .stars{color:var(--gold);font-size:1.2rem;letter-spacing:2px;margin:8px 0 4px}
+.rev-score .cnt{color:var(--muted);font-size:.85rem}
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar-row{display:flex;align-items:center;gap:12px;font-size:.85rem;color:var(--muted)}
+.bar-row .lab{width:42px;flex:none}
+.bar-row .track{flex:1;height:9px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar-row .fill{height:100%;width:0;background:var(--grad);border-radius:999px;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.bar-row .pct{width:38px;text-align:right;flex:none}
+.rev-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.rcard{padding:24px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.rcard .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rcard .av{width:42px;height:42px;border-radius:50%;background:var(--grad);color:#07070d;display:grid;place-items:center;font-weight:700}
+.rcard .who b{display:block;font-size:.92rem}
+.rcard .who span{font-size:.76rem;color:var(--muted2)}
+.rcard .stars{color:var(--gold);font-size:.82rem;margin-bottom:8px}
+.rcard p{color:var(--muted);font-size:.9rem}
+.verified{display:inline-flex;align-items:center;gap:5px;color:var(--green);font-size:.72rem;margin-top:12px}
+
+/* related */
+.related{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:38px}
+.rcard2{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:.35s}
+.rcard2:hover{transform:translateY(-7px);border-color:var(--line2)}
+.rcard2 .m{aspect-ratio:1/1;display:grid;place-items:center;background:linear-gradient(140deg,var(--c1),var(--c2));position:relative;overflow:hidden}
+.rcard2 .m .emoji{font-size:3.4rem;filter:drop-shadow(0 10px 20px rgba(0,0,0,.4));transition:transform .5s}
+.rcard2:hover .m .emoji{transform:scale(1.12) rotate(-4deg)}
+.rcard2 .m .mono{position:absolute;font-family:'Space Grotesk';font-weight:700;font-size:6rem;color:#fff;opacity:.1}
+.rcard2 .m img{width:100%;height:100%;object-fit:contain;padding:10px}
+.rcard2 .b{padding:14px}
+.rcard2 .b .nm{font-family:'Space Grotesk';font-weight:600;font-size:.95rem}
+.rcard2 .b .pr{color:var(--green);font-weight:700;margin-top:4px;font-family:'Space Grotesk'}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:30px;padding:64px 0 30px;background:var(--bg2)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.foot-grid p{color:var(--muted);font-size:.9rem;margin-top:16px;max-width:300px}
+.foot-col h5{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:18px}
+.foot-col a{display:block;color:var(--muted);font-size:.92rem;padding:6px 0;transition:.2s}
+.foot-col a:hover{color:var(--text);transform:translateX(4px)}
+.socials{display:flex;gap:12px;margin-top:20px}
+.socials a{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted);transition:.25s}
+.socials a:hover{color:#fff;border-color:var(--violet);transform:translateY(-3px)}
+.foot-bottom{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--muted2);font-size:.84rem}
+
+@media(max-width:980px){
+  .ptop{grid-template-columns:1fr;gap:30px}
+  .gallery{position:static}
+  .specs-wrap,.craft-grid{grid-template-columns:1fr;gap:28px}
+  .highlights,.rev-cards{grid-template-columns:1fr 1fr}
+  .pkg-grid,.related{grid-template-columns:1fr 1fr}
+  .rev-top{grid-template-columns:1fr;gap:24px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .dotnav{display:none}
+}
+@media(max-width:680px){
+  .nav-links{position:fixed;inset:74px 0 auto 0;flex-direction:column;gap:0;background:rgba(7,7,13,.97);backdrop-filter:blur(16px);padding:10px 24px 24px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .4s;align-items:stretch}
+  .nav-links.open{transform:none}
+  .nav-links a{padding:14px 0;border-bottom:1px solid var(--line)}
+  .nav-links a::after{display:none}
+  .burger{display:grid}
+  .highlights,.rev-cards,.pkg-grid,.related,.stat-cards,.quickfacts{grid-template-columns:1fr 1fr}
+  .trust{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .thumbs{grid-template-columns:repeat(5,1fr);gap:8px}
+  .hscroll .gi{flex-basis:78%}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="bg-fx"><div class="o a"></div><div class="o b"></div></div>
+<div class="bg-grid"></div>
+
+<!-- dot nav -->
+<nav class="dotnav" id="dotnav">
+  <a href="#overview" data-s="overview"><span class="tip">Overview</span></a>
+  <a href="#specs" data-s="specs"><span class="tip">Specifications</span></a>
+  <a href="#angles" data-s="angles"><span class="tip">360° Views</span></a>
+  <a href="#craft" data-s="craft"><span class="tip">Craftsmanship</span></a>
+  <a href="#ship" data-s="ship"><span class="tip">Packaging</span></a>
+  <a href="#reviews" data-s="reviews"><span class="tip">Reviews</span></a>
+</nav>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="home.html" class="logo"><span class="mark">忍</span><span>OTAKU VAULT<small>COLLECTIBLES</small></span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="home.html">Shop</a>
+      <a href="home.html#catalog">New Drops</a>
+      <a href="#overview">Details</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span class="count">2</span></button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="crumb"><a href="home.html">Home</a><span class="sep">/</span><a href="home.html#catalog">One Piece</a><span class="sep">/</span><span class="cur">Three Thousand Worlds — Zoro</span></div>
+</div>
+
+<!-- product top -->
+<section class="container ptop">
+  <!-- gallery -->
+  <div class="gallery reveal left">
+    <div class="stage" id="stage">
+      <img id="mainImg" src="uploads/1784829709644.png" alt="Three Thousand Worlds Zoro figure">
+      <span class="zoom-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Hover to zoom</span>
+    </div>
+    <div class="thumbs" id="thumbs">
+      <button class="thumb active" data-img="uploads/1784829709644.png"><img src="uploads/1784829709644.png" alt="front view"></button>
+      <button class="thumb" data-img="uploads/1784829705220.png"><img src="uploads/1784829705220.png" alt="front 3/4 view"></button>
+      <button class="thumb" data-img="uploads/1784829722419.png"><img src="uploads/1784829722419.png" alt="side view"></button>
+      <button class="thumb" data-img="uploads/1784829717075.png"><img src="uploads/1784829717075.png" alt="other side view"></button>
+      <button class="thumb" data-img="uploads/1784829713537.png"><img src="uploads/1784829713537.png" alt="back view"></button>
+    </div>
+  </div>
+
+  <!-- info -->
+  <div class="info reveal right">
+    <span class="series-pill">⚓ ONE PIECE · Santoryu</span>
+    <h1 class="h-display">Three Thousand Worlds — Zoro</h1>
+    <div class="rating"><span class="stars">★★★★★</span> 4.9 · <a href="#reviews">128 reviews</a></div>
+
+    <div class="pricebox"><span class="now">$39.99</span><span class="was">$59.99</span><span class="off">−33%</span></div>
+    <div class="stock"><span class="dot"></span> In stock — ships within 24h</div>
+
+    <p class="lead">Roronoa Zoro unleashed in his signature three‑sword style, blades blazing with translucent Conqueror's Haki. A dynamic, display‑ready statue capturing the exact moment of <em>Sanzen Sekai</em>.</p>
+
+    <div class="opt-label">Head variant: <b id="headName">Open Mouth (Green Hair)</b></div>
+    <div class="heads" id="heads">
+      <div class="head-opt active" data-h="Open Mouth (Green Hair)"><span class="sw">🟢</span> Open mouth</div>
+      <div class="head-opt" data-h="Bandana (Sword in Mouth)"><span class="sw">⚫</span> Bandana</div>
+    </div>
+
+    <div class="qtyrow">
+      <div class="qty"><button id="minus">−</button><input id="qty" value="1" inputmode="numeric"><button id="plus">+</button></div>
+      <span style="color:var(--muted);font-size:.85rem">Wholesale from 100 pcs — <a href="#" style="color:var(--violet)">request quote</a></span>
+    </div>
+
+    <div class="buyrow">
+      <button class="btn btn-primary" id="addCart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        Add to Cart</button>
+      <button class="btn btn-ghost">Buy Now</button>
+    </div>
+
+    <div class="trust">
+      <div class="t"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg></span><span>Secure encrypted checkout</span></div>
+      <div class="t"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span>Tracked global shipping</span></div>
+      <div class="t"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2-9.7L1 10"/></svg></span><span>14‑day easy returns</span></div>
+    </div>
+
+    <div class="quickfacts">
+      <div class="q"><b>23.5cm</b><span>Height</span></div>
+      <div class="q"><b>328g</b><span>Weight</span></div>
+      <div class="q"><b>PVC</b><span>Material</span></div>
+      <div class="q"><b>2</b><span>Heads</span></div>
+    </div>
+  </div>
+</section>
+<div id="sentinel" style="height:1px"></div>
+
+<!-- OVERVIEW -->
+<section class="dsec container" id="overview">
+  <div class="reveal"><span class="sec-kicker">The Piece</span><h2 class="h-display">A swordsman's fury, frozen in time</h2>
+    <p class="intro">Every muscle, every flowing fold of Zoro's coat is sculpted to convey raw motion. The three katanas trail semi‑transparent purple Haki wisps that catch the light from any angle — turning your shelf into a battle scene.</p></div>
+  <div class="highlights">
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg></div><h4>Three‑Sword Pose</h4><p>Authentic Santoryu stance with one blade clenched between the teeth.</p></div>
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Haki Effect Parts</h4><p>Translucent Conqueror's Haki swirls on all three swords.</p></div>
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><h4>2 Swap Heads</h4><p>Switch between the open‑mouth and bandana expressions.</p></div>
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Sculpted Base</h4><p>Heavy display base engraved with stylized kanji.</p></div>
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div><h4>Hand‑Painted</h4><p>Shading on the coat and skin adds depth and realism.</p></div>
+    <div class="hl reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div><h4>Collector Grade</h4><p>Quality‑checked PVC built to last on display.</p></div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="dsec container" id="specs">
+  <div class="reveal"><span class="sec-kicker">Technical</span><h2 class="h-display">Specifications</h2><p class="intro">Exact measurements straight from the manufacturer's sheet — plan your shelf space with confidence.</p></div>
+  <div class="specs-wrap">
+    <div class="spec-table reveal left">
+      <div class="row"><span class="k">Character / Theme</span><span class="v">Roronoa Zoro · One Piece</span></div>
+      <div class="row"><span class="k">Pose</span><span class="v">Three Thousand Worlds (Santoryu)</span></div>
+      <div class="row"><span class="k">Material</span><span class="v">PVC</span></div>
+      <div class="row"><span class="k">Product height</span><span class="v">≈ 23.5 cm</span></div>
+      <div class="row"><span class="k">Product width</span><span class="v">≈ 25 cm</span></div>
+      <div class="row"><span class="k">Weight</span><span class="v">≈ 328 g / pc</span></div>
+      <div class="row"><span class="k">Packaging</span><span class="v">Bag / Box</span></div>
+      <div class="row"><span class="k">Bag size</span><span class="v">20 × 15 × 9 cm</span></div>
+      <div class="row"><span class="k">Carton quantity</span><span class="v">100 pcs</span></div>
+      <div class="row"><span class="k">Extras</span><span class="v">2 heads · Haki parts · base</span></div>
+    </div>
+    <div class="stat-cards reveal right">
+      <div class="stat"><div class="num" data-count="23.5" data-dec="1" data-suf=" cm">0</div><div class="lab">Standing height</div><span class="deco">📏</span></div>
+      <div class="stat"><div class="num" data-count="25" data-suf=" cm">0</div><div class="lab">Blade‑to‑blade width</div><span class="deco">⚔️</span></div>
+      <div class="stat"><div class="num" data-count="328" data-suf=" g">0</div><div class="lab">Net weight</div><span class="deco">⚖️</span></div>
+      <div class="stat"><div class="num" data-count="100" data-suf=" pcs">0</div><div class="lab">Per carton (wholesale)</div><span class="deco">📦</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 360 angles -->
+<section class="dsec container" id="angles">
+  <div class="reveal"><span class="sec-kicker">Every angle</span><h2 class="h-display">360° showcase</h2><p class="intro">Scroll sideways to inspect the sculpt from all sides — front, profile, rear and the dynamic three‑quarter strike.</p></div>
+  <div class="hscroll reveal" id="hscroll">
+    <div class="gi"><img src="uploads/1784829709644.png" alt="front"><span class="cap">Front</span></div>
+    <div class="gi"><img src="uploads/1784829705220.png" alt="front 3/4"><span class="cap">3/4 Strike</span></div>
+    <div class="gi"><img src="uploads/1784829722419.png" alt="left side"><span class="cap">Left Profile</span></div>
+    <div class="gi"><img src="uploads/1784829717075.png" alt="right side"><span class="cap">Right Profile</span></div>
+    <div class="gi"><img src="uploads/1784829713537.png" alt="back"><span class="cap">Rear</span></div>
+  </div>
+</section>
+
+<!-- craftsmanship -->
+<section class="dsec container" id="craft">
+  <div class="reveal"><span class="sec-kicker">Made with care</span><h2 class="h-display">Craftsmanship & details</h2></div>
+  <div class="craft-grid">
+    <div class="craft-img reveal left"><img id="craftImg" src="uploads/1784829767901.png" alt="figure spec and detail sheet"></div>
+    <ul class="craft-list reveal right">
+      <li><span class="ck">✓</span><div><b>Layered coat shading</b><span>Gradient green‑to‑black on the haori sells the sense of wind and speed.</span></div></li>
+      <li><span class="ck">✓</span><div><b>Defined musculature</b><span>Torso sculpted with realistic tension matching the mid‑swing pose.</span></div></li>
+      <li><span class="ck">✓</span><div><b>Translucent Haki</b><span>Flexible purple effect parts wrap each blade without snapping.</span></div></li>
+      <li><span class="ck">✓</span><div><b>Interchangeable heads</b><span>Magnetic‑fit swap between expressions in seconds.</span></div></li>
+      <li><span class="ck">✓</span><div><b>Weighted kanji base</b><span>Keeps the wide‑stance figure stable on any flat surface.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- packaging -->
+<section class="dsec container" id="ship">
+  <div class="reveal"><span class="sec-kicker">Logistics</span><h2 class="h-display">Packaging & shipping</h2><p class="intro">Whether you order one piece or a full carton, every figure is protected for the journey.</p></div>
+  <div class="pkg-grid">
+    <div class="pkg reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div><b>Bag / Box</b><span>Retail‑ready packaging options</span></div>
+    <div class="pkg reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><b>20×15×9 cm</b><span>Individual bag dimensions</span></div>
+    <div class="pkg reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v12"/><rect x="2" y="16" width="20" height="6" rx="1"/></svg></div><b>100 pcs/ctn</b><span>Efficient wholesale cartons</span></div>
+    <div class="pkg reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><b>24h dispatch</b><span>Tracked worldwide delivery</span></div>
+  </div>
+</section>
+
+<!-- reviews -->
+<section class="dsec container" id="reviews">
+  <div class="reveal"><span class="sec-kicker">Loved by collectors</span><h2 class="h-display">Customer reviews</h2></div>
+  <div class="rev-top">
+    <div class="rev-score reveal left"><div class="big">4.9</div><div class="stars">★★★★★</div><div class="cnt">Based on 128 reviews</div></div>
+    <div class="bars reveal right" id="bars">
+      <div class="bar-row"><span class="lab">5 ★</span><span class="track"><span class="fill" data-w="86"></span></span><span class="pct">86%</span></div>
+      <div class="bar-row"><span class="lab">4 ★</span><span class="track"><span class="fill" data-w="10"></span></span><span class="pct">10%</span></div>
+      <div class="bar-row"><span class="lab">3 ★</span><span class="track"><span class="fill" data-w="3"></span></span><span class="pct">3%</span></div>
+      <div class="bar-row"><span class="lab">2 ★</span><span class="track"><span class="fill" data-w="1"></span></span><span class="pct">1%</span></div>
+      <div class="bar-row"><span class="lab">1 ★</span><span class="track"><span class="fill" data-w="0"></span></span><span class="pct">0%</span></div>
+    </div>
+  </div>
+  <div class="rev-cards">
+    <div class="rcard reveal"><div class="who"><span class="av">AK</span><div><b>Arjun K.</b><span>2 weeks ago</span></div></div><div class="stars">★★★★★</div><p>The Haki effect parts look insane under display lighting. Pose is super dynamic and the base is heavy enough to feel premium.</p><span class="verified">✓ Verified purchase</span></div>
+    <div class="rcard reveal"><div class="who"><span class="av">MS</span><div><b>Mei S.</b><span>1 month ago</span></div></div><div class="stars">★★★★★</div><p>Paint job on the coat gradient is clean, no overflow. Swapping the heads is easy. Worth every rupee for a Zoro fan.</p><span class="verified">✓ Verified purchase</span></div>
+    <div class="rcard reveal"><div class="who"><span class="av">DR</span><div><b>Diego R.</b><span>1 month ago</span></div></div><div class="stars">★★★★☆</div><p>Great detail for the price. Arrived well packed in the box option. Took a star off only because I wish it came with a nameplate.</p><span class="verified">✓ Verified purchase</span></div>
+  </div>
+</section>
+
+<!-- related -->
+<section class="dsec container" id="related" style="border-top:none">
+  <div class="reveal"><span class="sec-kicker">You may also like</span><h2 class="h-display">Complete your shelf</h2></div>
+  <div class="related">
+    <a href="details.html" class="rcard2 reveal"><div class="m"><img src="uploads/1784829705220.png" alt="Zoro alt"></div><div class="b"><div class="nm">Zoro — 3/4 Strike</div><div class="pr">$39.99</div></div></a>
+    <a href="details.html" class="rcard2 reveal"><div class="m" style="--c1:#7f1d1d;--c2:#f97316"><span class="mono">鬼</span><span class="emoji">🗡️</span></div><div class="b"><div class="nm">Crimson Flame Hashira</div><div class="pr">$44.99</div></div></a>
+    <a href="details.html" class="rcard2 reveal"><div class="m" style="--c1:#b45309;--c2:#1e3a8a"><span class="mono">忍</span><span class="emoji">🍥</span></div><div class="b"><div class="nm">Shadow Shinobi</div><div class="pr">$36.99</div></div></a>
+    <a href="details.html" class="rcard2 reveal"><div class="m" style="--c1:#312e81;--c2:#06b6d4"><span class="mono">呪</span><span class="emoji">👁️</span></div><div class="b"><div class="nm">Cursed Sorcerer</div><div class="pr">$42.99</div></div></a>
+  </div>
+  <div style="text-align:center;margin-top:40px" class="reveal"><a href="home.html" class="btn btn-ghost">← Back to all figures</a></div>
+</section>
+
+<!-- sticky cart bar -->
+<div class="stickbar" id="stickbar">
+  <div class="container inner">
+    <div class="sb-img"><img src="uploads/1784829709644.png" alt="Zoro"></div>
+    <div class="sb-info"><div class="nm">Three Thousand Worlds — Zoro</div><div class="pr">$39.99 <span style="color:var(--muted2);text-decoration:line-through;font-weight:400">$59.99</span></div></div>
+    <button class="btn btn-primary" id="addCart2">Add to Cart</button>
+  </div>
+</div>
+
+<!-- footer -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="home.html" class="logo"><span class="mark">忍</span><span>OTAKU VAULT<small>COLLECTIBLES</small></span></a>
+        <p>Premium anime figures & collectibles for true fans. Curated, quality‑checked, and shipped worldwide.</p>
+        <div class="socials">
+          <a href="#" aria-label="Twitter"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.46l8.6-9.83L0 1.15h7.6l5.24 6.93 6.06-6.93Zm-1.29 19.5h2.04L6.48 3.24H4.3l13.31 17.41Z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12Zm-13 3V9l5 3-5 3Z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h5>Shop</h5><a href="home.html#catalog">All Figures</a><a href="home.html#catalog">New Arrivals</a><a href="#related">Best Sellers</a><a href="#">Pre‑orders</a></div>
+      <div class="foot-col"><h5>Series</h5><a href="#">One Piece</a><a href="#">Demon Slayer</a><a href="#">Naruto</a><a href="#">Jujutsu Kaisen</a></div>
+      <div class="foot-col"><h5>Help</h5><a href="#ship">Shipping</a><a href="#">Returns</a><a href="#">Wholesale</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 OTAKU VAULT. All rights reserved.</span><span>Privacy · Terms · Cookies</span></div>
+  </div>
+</footer>
+
+<script>
+/* nav + progress */
+const nav=document.getElementById('nav'),progress=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>20);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(h>0?(scrollY/h*100):0)+'%';
+},{passive:true});
+const burger=document.getElementById('burger'),nl=document.getElementById('navlinks');
+burger.addEventListener('click',()=>nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* gallery thumbs + zoom */
+const mainImg=document.getElementById('mainImg'),stage=document.getElementById('stage');
+document.querySelectorAll('#thumbs .thumb').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('#thumbs .thumb').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  mainImg.style.opacity=0;
+  setTimeout(()=>{mainImg.src=t.dataset.img;mainImg.style.opacity=1;},180);
+}));
+if(matchMedia('(pointer:fine)').matches){
+  stage.addEventListener('mousemove',e=>{
+    const r=stage.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width*100).toFixed(1),y=((e.clientY-r.top)/r.height*100).toFixed(1);
+    mainImg.style.transformOrigin=`${x}% ${y}%`;mainImg.style.transform='scale(1.9)';
+  });
+  stage.addEventListener('mouseleave',()=>{mainImg.style.transform='scale(1)';});
+}
+
+/* head variant */
+document.querySelectorAll('#heads .head-opt').forEach(o=>o.addEventListener('click',()=>{
+  document.querySelectorAll('#heads .head-opt').forEach(x=>x.classList.remove('active'));
+  o.classList.add('active');document.getElementById('headName').textContent=o.dataset.h;
+}));
+
+/* quantity */
+const qty=document.getElementById('qty');
+document.getElementById('plus').onclick=()=>qty.value=Math.min(99,+qty.value+1);
+document.getElementById('minus').onclick=()=>qty.value=Math.max(1,+qty.value-1);
+qty.addEventListener('input',()=>qty.value=qty.value.replace(/[^0-9]/g,'').slice(0,2)||1);
+
+/* add to cart feedback */
+function flash(btn){const o=btn.innerHTML;btn.innerHTML='✓ Added!';btn.style.pointerEvents='none';setTimeout(()=>{btn.innerHTML=o;btn.style.pointerEvents='';},1400);}
+document.getElementById('addCart').addEventListener('click',e=>flash(e.currentTarget));
+document.getElementById('addCart2').addEventListener('click',e=>flash(e.currentTarget));
+
+/* sticky cart bar */
+const stickbar=document.getElementById('stickbar');
+new IntersectionObserver(es=>stickbar.classList.toggle('show',!es[0].isIntersecting),{threshold:0}).observe(document.getElementById('sentinel'));
+
+/* count-up + review bars when in view */
+const countIO=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+  const el=e.target;
+  if(el.classList.contains('num')){
+    const target=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'';
+    let start=null,dur=1400;
+    const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);const ease=1-Math.pow(1-p,3);
+      el.textContent=(target*ease).toFixed(dec)+suf;if(p<1)requestAnimationFrame(step);else el.textContent=target.toFixed(dec)+suf;};
+    requestAnimationFrame(step);
+  }else{ // bars container
+    el.querySelectorAll('.fill').forEach((f,i)=>setTimeout(()=>f.style.width=f.dataset.w+'%',i*120));
+  }
+  countIO.unobserve(el);
+}),{threshold:.4});
+document.querySelectorAll('.num[data-count],#bars').forEach(el=>countIO.observe(el));
+
+/* dot nav active + parallax */
+const sections=[...document.querySelectorAll('.dsec[id]')];
+const dots=[...document.querySelectorAll('#dotnav a')];
+const navIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;dots.forEach(d=>d.classList.toggle('active',d.dataset.s===id));}}),{rootMargin:'-45% 0px -45% 0px'});
+sections.forEach(s=>navIO.observe(s));
+
+const craftImg=document.getElementById('craftImg');
+let ticking=false;
+addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{
+  if(craftImg){const r=craftImg.getBoundingClientRect();const p=(innerHeight-r.top)/(innerHeight+r.height);
+    craftImg.style.transform=`translateY(${(p-.5)*-40}px)`;}
+  ticking=false;});
+},{passive:true});
+</script>
+</body>
+</html>
